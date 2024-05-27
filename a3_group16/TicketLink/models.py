@@ -44,3 +44,5 @@ class Comment(db.Model):
     # string print method
     def __repr__(self):
         return f"Comment: {self.text}"
+    
+    #akjdbbswfdjk
