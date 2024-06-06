@@ -7,41 +7,63 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
-	# password should never stored in the DB, an encrypted password is stored
-	# the storage should be at least 255 chars long, depending on your hashing algorithm
+	#password is never stored in the DB, an encrypted password is stored
+	# the storage should be at least 255 chars long
     password_hash = db.Column(db.String(255), nullable=False)
     # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
-    
-    # string print method
-    def __repr__(self):
-        return f"Name: {self.name}"
 
-class Destination(db.Model):
-    __tablename__ = 'destinations'
+class Event(db.Model):
+    __tablename__ = 'events' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
-    currency = db.Column(db.String(3))
     # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
-    comments = db.relationship('Comment', backref='destination')
-	
-    # string print method
-    def __repr__(self):
-        return f"Name: {self.name}"
+	# relation to call event.comments and comment.event
+    comments = db.relationship('Comment', backref='event')
 
+
+    
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
-    # add the foreign key
+    # add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
-    # string print method
-    def __repr__(self):
-        return f"Comment: {self.text}"
     
+class Ticket(db.Model):
+    __tablename__ = 'tickets'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), index=True, nullable=False)
+    description = db.Column(db.String(500))
+    tick_avail = db.Column(db.Boolean, default=1)
+    cost = db.Column(db.String(3))
+    # Define the one-to-many relationship with the ticket availability.
+    quantities = db.relationship('TicketAvailable', backref='ticket', lazy='dynamic')
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+
+    def to_dict(self):
+        e_dict = {
+            b.name: str(getattr(self, b.name)) for b in self.__table__.columns
+        }
+        h_quantities = []
+        # Add details of related tickets to the event's h_dict
+        for ticketavailable in self.quantities:
+            qty_data = {
+                'id': ticketavailable.id,
+                'num_tix': ticketavailable.num_tix,
+                'event_id': ticketavailable.event_id
+            }
+            h_quantities.append(qty_data)
+        e_dict['quantities'] = h_quantities
+        return e_dict
+    
+class TicketAvailable(db.Model):
+    __tablename__ = 'quantities'
+    id = db.Column(db.Integer, primary_key=True)
+    num_tix = db.Column(db.Integer, nullable=False)
+    ticket_id = db.Column(db.Integer, db.ForeignKey('tickets.id'))
