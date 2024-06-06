@@ -1,55 +1,69 @@
-{% extends 'base.html' %}
+{%extends "base.html"%}
+{%import "bootstrap/form.html" as wtf%}
 
-{% block header %}
-      <!--Jumbotron-->
-      <div class="container">
-         <div class="row justify-content-center mt-5 pb-4">
-            <div class="col-md-8">
-               <div class="card shadow p-5 mb-5 bg-light">
-                  <h1 class="text-center mb-3">Find our best travel deals</h1>
-                  
-                  <form class="form-inline d-flex flex-nowrap" action="{{ url_for('main.search') }}" >
-                     <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2" id="SearchForm">
-                     <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button>
-                   </form>
-               </div>
-               
-            </div>
-         </div>
-      </div>
-{% endblock %}
+<!--Changes the heading of the site and adds stylesheet-->
+<link rel="stylesheet" href="static/style/homepage.css">
+<title>Home Page | TicketLink</title>
 
-{% block content %}   
-      <div class="container">
-         <div class="row mt-5 mb-5 justify-content-center">
-            <div class="col-md-10">
-               <div class="media border p-3 d-flex justify-content-start">
-                  <img class="align-self-center me-3" style="max-width:120px"
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/600px-Earth_Western_Hemisphere_transparent_background.png"
-                     alt="Planet Earth">
-                  <div class="align-self-center media-body">
-                     <h5 class="mt-0">Find the best destinations on earth</h5>
-                     <p class="d-none d-sm-block">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                        scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla.</p>
-                     <a href="#" class="btn btn-primary">Join Now</a>
+{%block content%}
+
+
+<div class="container-fluid">
+          <!-- Contains the main content of the website, divided into sections -->
+          <main>
+            <section class="events">
+    
+                <div class="events-heading" style="color: gray">
+                        <h3>Upcoming Events</h3> 
+                    </div>
+
+                <article class="upcoming-events">
+                    <img src="static/image/first.png">
+                    <div>
+                    <h3>{{event.name}}</h3>
+                    <p>VenueThe Gabba, Woolloongabba, QLD</p>
+                    <b>Date - Fri 14 Jun</b><br>
+                    <b>Start - 7:40PM</b>
+                    <p>Gates Open - 6:00PM</p>
+                    <p>Finish - Approximately 2.5 hours after start time.
+                    All times are approximate and subject to change.</p>
+                    <p>Price: $25~</p>
+                    <button type="button" class="btn btn-lg d-block mx-auto" type="submit" style="width: 250px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Sold Out</button>
+                    </div>
+                </article>
+    
+                <article class="upcoming-events">
+                    <img src="static/image/second.png">
+                    <div>
+                    <h3>Port Adelaide v Brisbane Lions </h3>
+                    <p>Adelaide Oval, North Adelaide, SA</p>
+                    <b>Date - Sat 22 Jun</b><br>
+                    <b>Start - 1:30PM</b>
+                    <p>Gates Open - 11:30AM</p>
+                    <p>Finish - Approximately 2.5 hours after start time.
+                    All times are approximate and subject to change.</p>
+                    <p>Price: $25~</p>
+                    <button onclick="window.location.href='detail.html'" class="btn btn-danger btn-lg d-block mx-auto" style="width: 250px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                      Get Ticket
+                  </button>  
                   </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="card-group">
-            {% for destination in destinations %}
-            <div class="card mx-3">
-               <img class="card-img-top"
-                  src="{{ destination.image }}" alt="France">
-               <div class="card-body">
-                  <h5 class="card-title">{{ destination.name }}</h5>
-                  <p class="card-text"> {{destination.description}}
-                  </p>
-               </div>
-               <div class="card-footer"><a href="{{url_for('destination.show', id=destination.id)}}" class ="btn btn-danger"> View Details </a></div>
-            </div>
-            {% endfor %}
-         </div>
-{% endblock %}
+                </article>
+    
+                <article class="upcoming-events">
+                    <img src="static/image/third.png">
+                    <div>
+                    <h3>Brisbane Lion v Melbourne Demons</h3>
+                    <p>Adelaide Oval, North Adelaide, SA</p>
+                    <b>Date - Fri 28 Jun</b><br>
+                    <b>Start - 4:30PM</b>
+                    <p>Gates Open - 2:30PM</p>
+                    <p>Finish - Approximately 2.5 hours after start time.
+                    All times are approximate and subject to change.</p>
+                    <p>Price: $25~</p>
+                    <button type="button" class="btn btn-lg d-block mx-auto wide: 250px" type="submit" style="width: 250px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Inactive Open at 23/Apr</button>
+                  </div>
+                </article>   
+            </section>
+        </main>
+      </div>
+{%endblock%}
