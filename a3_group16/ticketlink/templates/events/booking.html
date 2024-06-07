@@ -1,1 +1,45 @@
 
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+<!--Changes the heading of the site and adds stylesheet-->
+<link rel="stylesheet" href="static/style/booking.css">
+<title>Booking History | TicketLink</title>
+
+{% block content %}
+
+<div class="container-fluid">
+    <!-- Contains the main content of the website, divided into sections -->
+    <main>
+      <section class="events">
+
+          <div class="events-heading" style="color: gray">
+              <h3>Booked Events</h3>
+          </div>
+        {% for event in events %}
+          <div>
+            <article class="upcoming-events" style="width:290px">
+                <img src="{{ event.image }}">
+                <div>
+                <h3>{{ event.name }}</h3>
+                <p>
+                <strong>Date: </strong>{{ event.date }}<br>
+                <strong>Start Time: </strong>{{ event.start_time }}<br>
+                <strong>Location: </strong>{{ event.location }}<br>
+                <strong>Description: </strong><br>{{ event.description }}<br>
+                <strong>Status: </strong>{{ event.status }}<br>
+                <strong>Price: </strong>${{ event.price }}<br>
+                </p>
+                <button type="button" onclick="window.location.href='{{ url_for('event.show', id=event.id) }}'" class="btn btn-danger mx-auto" type="submit" style="width: 250px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Get Ticket</button>
+                <a href="{{ url_for('auth.update', id=event.id) }}" class="btn btn-primary">Update Event</a>
+
+                </div>
+            </article>
+          </div>
+    {% endfor %}
+      </section>
+  </main>
+</div>
+
+{%endblock%}
