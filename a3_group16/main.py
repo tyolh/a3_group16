@@ -1,5 +1,5 @@
-from a3_group16 import create_app
+from ticketlink import create_app
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = create_app()
-    app.run()
+    app.run(debug=True, port=5001)
