@@ -1,1 +1,84 @@
+{%extends "base.html"%}
+{%import "bootstrap/form.html" as wtf%}
+{% from 'bootstrap5/form.html' import render_form %}
 
+<!--Changes the heading of the site-->
+<title>Detail Event | TicketLink</title>
+
+{%block content%}
+
+    <div class="container" style="margin-top:30px">
+
+        <!--Gets the id of the event selected and located that in the event database-->
+          <div class="row">
+              <div class="col-sm-4">
+                <img src="{{event.image}}" width="414">
+            </div>
+            <div class="col-sm-8">
+                <h3><u>{{event.name}}</u></h3>
+                <p><b>Venue:</b> {{event.location}}</p>
+                
+                <p><b>Price:</b> ${{event.price}}</p>
+                <h5><b>Date:</b> {{event.date}}</h5>
+                <br>
+                    <div class="event-details">
+                    <p><b>Description:</b><br>{{event.description}}</p>                
+
+                </div>
+
+                    <form action="/action_page.php">
+                      <label for="quantity">Select quantity:</label>
+                      <select name="quantity" id="quantity">
+                        <optgroup label="Qty">
+                          <option value="quantity">1</option>
+                          <option value="quantity">2</option>
+                          <option value="quantity">3</option>
+                          <option value="quantity">4</option>
+                          <option value="quantity">5</option>
+                        </optgroup>
+                      </select>
+                      <br><br>
+                    </form>
+                      <div class="float-end">
+
+                        <button onclick="window.location.href='/events/booking'" class="btn btn-success">
+                          Get Ticket <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                      </button>
+                    </div>
+
+                </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Comments -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h2>Comments</h1>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom">
+                        {#
+                        {% macro render_form(form,"/events/{0}/comment".format(event.id)) %}
+
+                        {% for comment in event.comments %}
+                        <div class="col-md-12">
+                          <b>{{ comment.user.name }} <span class="ml-2 text-muted">June 2024</span></b>
+                          <p>{{ comment.text }}</p>
+                        </div>
+                        {% endfor %}
+                        #}
+                      </div>
+
+                    <!-- New comment form -->
+                    <div class="col-sm-12">
+                    <div class="d-flex flex-start w-100 mt-3">
+                        <div class="w-100">
+                            {{ render_form(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{%endblock%}
