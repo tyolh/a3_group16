@@ -1,0 +1,15 @@
+.booking-item {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 300px; /* Adjust width as needed */
+}
+
+/* Sets the style only for <img> used within the article tags in the section. */
+.booking-img {
+    display: block;
+    border: 0;
+    width: 100%;
+    height: auto;
+}
