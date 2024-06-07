@@ -1,1 +1,42 @@
+{% extends 'base.html' %}
+{%import "bootstrap/form.html" as wtf%}
+{% from 'bootstrap5/form.html' import render_form %}
+<!--Changes the heading of the site and adds stylesheet-->
+<link rel="stylesheet" href="static/style/stylesheet.css">
+<title>Create Event | TicketLink</title>
 
+  
+
+{% block content %}
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <h1>Add Upcoming Event</h1>
+        <p>Enter an event we all would love to attend.</p>
+        {{ render_form(form) }}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+<body>
+   <!-- Adding the Footer-->
+   <div class="footer-basic" style="position: relative;">
+    <footer>
+
+        <ul class="list-inline">
+            <li class="list-inline-item" style = "font-size: 15px;"><a href="#">Terms and Use</a></li>
+            <li class="list-inline-item" style = "font-size: 15px;"><a href="#">Privacy Policy</a></li>
+            <li class="list-inline-item" style = "font-size: 15px;"><a href="#">Cookies Policy</a></li>
+        </ul>
+        <p><a href="mailto:TicketLink@sportsevents.com" style="color:white; font-size: 12px;">Email Us: TicketLink@sportsevents.com</a></p>
+        <p class="copyright">TicketLink © 2024</p>
+    </footer>
+
+    {{ bootstrap.load_js() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
