@@ -1,1 +1,42 @@
+{%extends "base.html"%}
+{%import "bootstrap/form.html" as wtf%}
 
+<!--Changes the heading of the site and adds stylesheet-->
+<link rel="stylesheet" href="static/style/homepage.css">
+<title>Boxing Page | TicketLink</title>
+
+{%block content%}
+
+
+<div class="container-fluid">
+          <!-- Contains the main content of the website, divided into sections -->
+          <main>
+            <section class="events">
+
+                <div class="events-heading" style="color: gray">
+                    <h3>Boxing Events</h3>
+                </div>
+    {%for event in events %}
+            {%if event.sport == 'Boxing'%}
+                <div>
+                  <article class="upcoming-events" style="width:290px">
+                      <img src="{{ event.image }}">
+                      <div>
+                      <h3>{{ event.name }}</h3>
+                      <b>{{ event.date }}</b><br>
+                      <b>{{ event.start_time }}</b>
+                      <p>{{ event.location }}</p>
+                      <p>{{ event.description }}</p>
+                      <p>{{ event.status }}</p>
+                      <p>${{ event.price }}</p>
+                      <button type="button" onclick="window.location.href='{{ url_for('event.show', id=event.id) }}'" class="btn btn-danger mx-auto" type="submit" style="width: 250px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">Get Ticket</button>
+                      </div>
+                  </article>
+                </div>
+            {%endif%}
+            
+        {% endfor %}
+            </section>
+        </main>
+      </div>
+{%endblock%}
